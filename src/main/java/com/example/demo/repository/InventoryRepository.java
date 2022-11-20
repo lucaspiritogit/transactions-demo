@@ -3,9 +3,10 @@ package com.example.demo.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.entity.Image;
+import com.example.demo.entity.Inventory;
 
 @Repository
-public interface ImageRepository extends CrudRepository<Image, Long>{
+public interface InventoryRepository extends CrudRepository<Inventory, Long> {
+	
 
 }

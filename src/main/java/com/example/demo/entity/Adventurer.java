@@ -1,18 +1,23 @@
 package com.example.demo.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Image {
+public class Adventurer {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long id;
+	private Long id;
 	
-	String name;
+	private String name;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	private Inventory inventory;
 
 	public Long getId() {
 		return id;
@@ -29,6 +34,15 @@ public class Image {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}
+	
 	
 	
 }
