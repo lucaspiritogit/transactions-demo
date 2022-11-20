@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
-import javax.management.RuntimeErrorException;
+import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,23 +17,22 @@ public class AdventurerService {
 	@Autowired
 	AdventurerRepository adventurerRepository;
 	
-	@Transactional(rollbackFor = Exception.class)
-	public void createAdventurer(Adventurer adventurer) throws Exception {
-		try {
+	@Transactional
+	public void registerAdventurer(Adventurer adventurer) throws RuntimeException {
 			if(!adventurer.getInventory().getBackpack()) {
-				throw new Exception();
+				throw new CustomException("An adventurer always needs a backpack!");
 			}
 			adventurerRepository.save(adventurer);
-		} catch (Exception e) {
-			throw new CustomException("An adventurer always needs a backpack!");
-		}
 		
 	}
 	
-	public Adventurer getAdventurer(Adventurer adventurer) {
-		adventurerRepository.findById(adventurer.getId());
+	public Optional<Adventurer> getAdventurer(Long adventurerId) {
+		return adventurerRepository.findById(adventurerId);
 		
-		return adventurer;
+	}
+	
+	public Iterable<Adventurer> getAllAdventurers() {
+		return adventurerRepository.findAll();
 	}
 	
 }

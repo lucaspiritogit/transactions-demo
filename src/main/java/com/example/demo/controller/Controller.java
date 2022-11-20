@@ -1,7 +1,12 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +26,12 @@ public class Controller {
 	@Autowired
 	InventoryService inventoryService;
 	
+	@PostMapping(value = "/api/inventory", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<Inventory> newInventory(@RequestBody Inventory inventory) {
+		inventoryService.saveInventory(inventory);
+		return ResponseEntity.ok(inventory);
+	}
+	
 	@PostMapping(value = "/api/adventurer", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Adventurer> newAdventurer(@RequestBody AdventurerDTO adventurerDto) throws Exception {
 
@@ -33,13 +44,21 @@ public class Controller {
 		adventurer.setName(adventurerDto.getAdventurer().getName());
 		adventurer.setInventory(adventurerDto.getInventory());
 		
-		adventurerService.createAdventurer(adventurer);
+		adventurerService.registerAdventurer(adventurer);
 		return ResponseEntity.ok(adventurer);
 	}
 	
-	@PostMapping(value = "/api/inventory", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<Inventory> newInventory(@RequestBody Inventory inventory) {
-		inventoryService.saveInventory(inventory);
-		return ResponseEntity.ok(inventory);
+	@GetMapping(value = "/api/adventurer")
+	public Iterable<Adventurer> getAllAdventurers() {
+		Iterable<Adventurer> registeredAdventurers = adventurerService.getAllAdventurers();
+		return registeredAdventurers;
+	}
+	
+	@GetMapping(value = "/api/adventurer/{id}")
+	public ResponseEntity<Optional<Adventurer>> getAdventurer(@PathVariable Long id ) {
+
+		Optional<Adventurer> foundAdventurer = adventurerService.getAdventurer(id);
+		
+		return ResponseEntity.ok(foundAdventurer);
 	}
 }
