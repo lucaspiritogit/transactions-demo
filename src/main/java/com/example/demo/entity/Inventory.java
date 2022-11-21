@@ -14,7 +14,6 @@ public class Inventory {
 	
 	private Boolean sword;
 	private Boolean shield;
-	private Boolean backpack;
 	
 	public Long getId() {
 		return id;
@@ -34,13 +33,6 @@ public class Inventory {
 	public void setShield(Boolean shield) {
 		this.shield = shield;
 	}
-	public Boolean getBackpack() {
-		return backpack;
-	}
-	public void setBackpack(Boolean backpack) {
-		this.backpack = backpack;
-	}
-	
 	
 	
 }

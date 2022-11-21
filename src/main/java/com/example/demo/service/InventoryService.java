@@ -14,11 +14,6 @@ public class InventoryService {
 	@Autowired
 	InventoryRepository inventoryRepository;
 	
-	
-	public void saveInventory(Inventory inventory) {
-		inventoryRepository.save(inventory);
-	}
-	
 	public Optional<Inventory> getInventory(Long inventoryId) {
 		return inventoryRepository.findById(inventoryId);
 		

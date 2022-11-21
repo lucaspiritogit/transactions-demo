@@ -26,19 +26,12 @@ public class Controller {
 	@Autowired
 	InventoryService inventoryService;
 	
-	@PostMapping(value = "/api/inventory", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<Inventory> newInventory(@RequestBody Inventory inventory) {
-		inventoryService.saveInventory(inventory);
-		return ResponseEntity.ok(inventory);
-	}
-	
 	@PostMapping(value = "/api/adventurer", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Adventurer> newAdventurer(@RequestBody AdventurerDTO adventurerDto) throws Exception {
 
 		Inventory inventory = new Inventory();
 		inventory.setSword(adventurerDto.getInventory().getSword());
 		inventory.setShield(adventurerDto.getInventory().getShield());
-		inventory.setBackpack(adventurerDto.getInventory().getBackpack());
 		
 		Adventurer adventurer = new Adventurer();
 		adventurer.setName(adventurerDto.getAdventurer().getName());

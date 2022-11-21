@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,8 @@ public class AdventurerService {
 	
 	@Transactional
 	public void registerAdventurer(Adventurer adventurer) throws RuntimeException {
-			if(!adventurer.getInventory().getBackpack()) {
-				throw new CustomException("An adventurer always needs a backpack!");
+			if(!adventurer.getInventory().getSword()) {
+				throw new CustomException("An adventurer always needs a sword!");
 			}
 			adventurerRepository.save(adventurer);
 		
